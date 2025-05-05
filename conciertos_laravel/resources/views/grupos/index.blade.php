@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Grupos</h1>
-    <a href="{{ route('grupos.create') }}">Crear nuevo grupo</a>
+    <a href="{{ route('grupos.create') }}" class="inline-block mb-4 px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">Crear nuevo Grupo</a>
 
     <ul>
         @foreach ($grupos as $grupo)

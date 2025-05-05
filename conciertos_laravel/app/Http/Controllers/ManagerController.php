@@ -8,58 +8,70 @@ use Illuminate\Http\Request;
 class ManagerController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra todos los managers.
      */
     public function index()
     {
-        //
+        $managers = Manager::all();
+        return view('managers.index', compact('managers'));
     }
-
+    
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo manager.
      */
     public function create()
     {
-        //
+        return view('managers.create');
     }
-
+    
     /**
-     * Store a newly created resource in storage.
+     * Almacena un manager.
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:255',
+        ]);
+        
+        Manager::create($validated);
+        return redirect()->route('managers.index')->with('status', 'Manager creado exitosamente.');
     }
-
+    
     /**
-     * Display the specified resource.
+     * Muestra detalles de un manager.
      */
     public function show(Manager $manager)
     {
-        //
+        return view('managers.show', compact('manager'));
     }
-
+    
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un manager.
      */
     public function edit(Manager $manager)
     {
-        //
+        return view('managers.edit', compact('manager'));
     }
-
+    
     /**
-     * Update the specified resource in storage.
+     * Actualiza un manager.
      */
     public function update(Request $request, Manager $manager)
     {
-        //
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:255',
+        ]);
+        
+        $manager->update($validated);
+        return redirect()->route('managers.index')->with('status', 'Manager actualizado exitosamente.');
     }
-
+    
     /**
-     * Remove the specified resource from storage.
+     * Elimina un manager.
      */
     public function destroy(Manager $manager)
     {
-        //
+        $manager->delete();
+        return redirect()->route('managers.index')->with('status', 'Manager eliminado exitosamente.');
     }
 }

@@ -8,14 +8,17 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
     ],
+    
 
     theme: {
         extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
+          colors: {
+            primary: '#FF4500',   // Por ejemplo, un naranja fuerte
+            secondary: '#FAD648', // Amarillo cálido
+            accent: '#FF9933',    // Un tono intermedio
+          },
         },
-    },
+      },
 
     plugins: [forms],
 };

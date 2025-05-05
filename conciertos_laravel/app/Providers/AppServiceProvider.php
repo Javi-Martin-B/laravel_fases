@@ -9,7 +9,14 @@ use App\Models\User;
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * The policy mappings for the application.
+     * Define la ruta de inicio después de la autenticación.
+     */
+
+
+    /**
+     * Mapeo de modelos a políticas.
+     *
+     * @var array
      */
     protected $policies = [
         // Aquí puedes registrar tus políticas, si tienes
@@ -17,18 +24,14 @@ class AuthServiceProvider extends ServiceProvider
     ];
 
     /**
-     * Register any authentication / authorization services.
+     * Registra los servicios de autenticación y autorización.
      */
     public function boot(): void
     {
-        
+        $this->registerPolicies(); // Asegurar que las políticas se registran correctamente.
 
-        Gate::define('is_admin', function (User $user) {
-            return $user->role === 'admin';
-        });
+        Gate::define('is_admin', fn(User $user) => $user->role === 'admin');
 
-        Gate::define('is_owner', function (User $user) {
-            return $user->role === 'owner';
-        });
+        Gate::define('is_owner', fn(User $user) => $user->role === 'owner');
     }
 }

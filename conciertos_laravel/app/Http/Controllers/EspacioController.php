@@ -8,58 +8,74 @@ use Illuminate\Http\Request;
 class EspacioController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra la lista de espacios.
      */
     public function index()
     {
-        //
+        $espacios = Espacio::all();
+        return view('espacios.index', compact('espacios'));
     }
-
+    
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo espacio.
      */
     public function create()
     {
-        //
+        return view('espacios.create');
     }
-
+    
     /**
-     * Store a newly created resource in storage.
+     * Almacena un espacio en la base de datos.
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nombre'         => 'required|string|max:255',
+            'capacidad'      => 'required|integer',
+            'disponibilidad' => 'required|string|max:255',
+        ]);
+        
+        Espacio::create($validated);
+        return redirect()->route('espacios.index')->with('status', 'Espacio creado exitosamente.');
     }
-
+    
     /**
-     * Display the specified resource.
+     * Muestra detalles de un espacio.
      */
     public function show(Espacio $espacio)
     {
-        //
+        return view('espacios.show', compact('espacio'));
     }
-
+    
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un espacio.
      */
     public function edit(Espacio $espacio)
     {
-        //
+        return view('espacios.edit', compact('espacio'));
     }
-
+    
     /**
-     * Update the specified resource in storage.
+     * Actualiza un espacio existente.
      */
     public function update(Request $request, Espacio $espacio)
     {
-        //
+        $validated = $request->validate([
+            'nombre'         => 'required|string|max:255',
+            'capacidad'      => 'required|integer',
+            'disponibilidad' => 'required|string|max:255',
+        ]);
+        
+        $espacio->update($validated);
+        return redirect()->route('espacios.index')->with('status', 'Espacio actualizado exitosamente.');
     }
-
+    
     /**
-     * Remove the specified resource from storage.
+     * Elimina un espacio.
      */
     public function destroy(Espacio $espacio)
     {
-        //
+        $espacio->delete();
+        return redirect()->route('espacios.index')->with('status', 'Espacio eliminado exitosamente.');
     }
 }

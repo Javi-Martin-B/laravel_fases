@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>managers</h1>
-    <a href="{{ route('managers.create') }}">Crear nuevo manager</a>
+    <a href="{{ route('managers.create') }}" class="inline-block mb-4 px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">Crear nuevo Manager</a>
 
     <ul>
         @foreach ($managers as $manager)
